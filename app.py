@@ -9,37 +9,31 @@ st.set_page_config(page_title="AI Video Assistant", page_icon="🤖", layout="ce
 
 st.markdown("""
     <style>
-    .stApp { background-color: #f9f6f2; } /* Claude වගේ ලා පැහැති පසුබිමක් */
+    .stApp { background-color: #f9f6f2; } 
     .stButton>button { width: 100%; border-radius: 20px; background-color: #d97757; color: white; }
     </style>
-    """, unsafe_allow_name=True)
+    """, unsafe_allow_html=True)
 
 st.title("🤖 AI Video Assistant")
 st.caption("I can summarize any YouTube video for you. Just provide the link.")
 
-# Chat එකක් වගේ පෙන්වීමට Session State පාවිච්චි කරමු
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# පරණ මැසේජ් පෙන්වීම
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# User ලින්ක් එක දෙන තැන
 if url := st.chat_input("Paste YouTube link here..."):
-    # User ගේ මැසේජ් එක පෙන්වීම
     st.session_state.messages.append({"role": "user", "content": url})
     with st.chat_message("user"):
         st.markdown(url)
 
-    # AI ගේ පිළිතුර සකස් කිරීම
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         message_placeholder.markdown("Thinking... 🔍")
         
         try:
-            # Download and Process
             ydl_opts = {
                 'format': 'bestaudio/best',
                 'outtmpl': 'audio_file.%(ext)s',
@@ -55,15 +49,14 @@ if url := st.chat_input("Paste YouTube link here..."):
             result = model.transcribe(audio_filename, task="translate")
             summary = result["text"]
 
-            # Display Result
             full_response = f"Here is the summary of the video:\n\n{summary}"
             message_placeholder.markdown(full_response)
             
-            # PDF එකක් සාදා බාගත කිරීමට ඉඩ දීම
             pdf = FPDF()
             pdf.add_page()
             pdf.set_font("Arial", size=12)
-            pdf.multi_cell(0, 10, txt=summary.encode('latin-1', 'ignore').decode('latin-1'))
+            clean_text = summary.encode('latin-1', 'ignore').decode('latin-1')
+            pdf.multi_cell(0, 10, txt=clean_text)
             pdf.output("summary.pdf")
             
             st.download_button("📥 Download PDF Report", open("summary.pdf", "rb"), file_name="Summary.pdf")
