@@ -14,12 +14,21 @@ if url:
     if st.button("Summarize Now"):
         try:
             with st.status("AI එක වැඩ කරමින් පවතී...", expanded=True):
-                # Audio එක බාගැනීම
-                ydl_opts = {'format': 'bestaudio/best', 'outtmpl': 'audio_file'}
+                # බ්ලොක් නොවී බාගත කිරීමට settings
+                ydl_opts = {
+                    'format': 'bestaudio/best',
+                    'outtmpl': 'audio_file',
+                    'quiet': True,
+                    'no_warnings': True,
+                    'nocheckcertificate': True,
+                    'ignoreerrors': False,
+                    'logtostderr': False,
+                    'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                }
+                
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     ydl.download([url])
                 
-                # Whisper AI මගින් ලියවිල්ලක් කිරීම සහ පරිවර්තනය
                 model = whisper.load_model("base")
                 result = model.transcribe("audio_file.webm", task="translate")
                 summary_text = result["text"]
@@ -27,7 +36,6 @@ if url:
             st.subheader("Summary:")
             st.success(summary_text)
 
-            # PDF එකක් සෑදීම
             pdf = FPDF()
             pdf.add_page()
             pdf.set_font("Arial", size=12)
