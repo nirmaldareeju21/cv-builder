@@ -18,7 +18,7 @@ st.title("🤖 AI Video Assistant (Pro)")
 st.caption("Summarize YouTube videos using transcripts + AI.")
 
 # Summarizer model
-summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+summarizer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
 
 def extract_video_id(url):
     reg = r"(?:v=|\/)([0-9A-Za-z_-]{11}).*"
