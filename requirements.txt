@@ -4,3 +4,6 @@ fpdf
 transformers
 torch
 sentencepiece
+git add requirements.txt
+git commit -m "Added dependencies for transformers"
+git push
