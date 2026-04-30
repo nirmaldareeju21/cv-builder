@@ -18,7 +18,15 @@ st.title("🤖 AI Video Assistant (Pro)")
 st.caption("Summarize YouTube videos using transcripts + AI.")
 
 # Summarizer model
-summarizer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+
+tokenizer = AutoTokenizer.from_pretrained("sshleifer/distilbart-cnn-12-6")
+model = AutoModelForSeq2SeqLM.from_pretrained("sshleifer/distilbart-cnn-12-6")
+
+def summarize_text(text):
+    inputs = tokenizer(text, return_tensors="pt", max_length=1024, truncation=True)
+    summary_ids = model.generate(inputs["input_ids"], max_length=200, min_length=50, length_penalty=2.0, num_beams=4)
+    return tokenizer.decode(summary_ids[0], skip_special_tokens=True)
 
 def extract_video_id(url):
     reg = r"(?:v=|\/)([0-9A-Za-z_-]{11}).*"
