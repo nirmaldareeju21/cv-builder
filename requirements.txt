@@ -1,6 +1,8 @@
 streamlit
 youtube-transcript-api
 fpdf
-transformers
+transformers==4.30.2
+torch
+sentencepiece
 torch
 sentencepiece
