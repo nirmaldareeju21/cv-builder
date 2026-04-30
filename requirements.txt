@@ -4,5 +4,4 @@ fpdf
 transformers==4.30.2
 torch
 sentencepiece
-torch
-sentencepiece
+huggingface-hub
