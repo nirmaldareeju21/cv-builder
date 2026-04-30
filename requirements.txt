@@ -1,0 +1,5 @@
+streamlit
+openai-whisper
+yt_dlp
+fpdf
+setuptools
