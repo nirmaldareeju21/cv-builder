@@ -3,57 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional CV Builder - A4 Size</title>
+    <title>Multi-Template CV Builder</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
     <div class="main-wrapper">
-        <!-- Input Area (Editor) -->
         <div class="editor no-print">
-            <h2>CV Settings</h2>
-            
+            <h2>Select Template</h2>
+            <div class="template-selector">
+                <button onclick="setTemplate('modern')">Modern (Side Photo)</button>
+                <button onclick="setTemplate('classic')">Classic (Center)</button>
+            </div>
+
             <div class="input-group">
-                <label>Choose Theme Color:</label>
+                <label>Theme Color:</label>
                 <input type="color" id="themeColor" value="#2c3e50" oninput="changeColor()">
             </div>
 
-            <div class="section-title">Personal Details</div>
+            <div class="section-title">Details</div>
             <input type="text" id="name" placeholder="Full Name" oninput="updateCV()">
-            <input type="text" id="jobTitle" placeholder="Professional Title (e.g. AC Technician)" oninput="updateCV()">
+            <input type="text" id="jobTitle" placeholder="Job Title" oninput="updateCV()">
             <input type="file" accept="image/*" onchange="previewImage(event)">
             <input type="text" id="phone" placeholder="Phone Number" oninput="updateCV()">
             <input type="email" id="email" placeholder="Email Address" oninput="updateCV()">
-            <input type="text" id="location" placeholder="City, Country" oninput="updateCV()">
-
-            <div class="section-title">Content</div>
-            <textarea id="about" placeholder="Professional Summary" oninput="updateCV()"></textarea>
-            <textarea id="experience" placeholder="Work Experience (Enter one per line)" oninput="updateCV()"></textarea>
-            <textarea id="education" placeholder="Education (Enter one per line)" oninput="updateCV()"></textarea>
-            <textarea id="skills" placeholder="Skills (Press Enter for each skill)" oninput="updateCV()"></textarea>
+            <input type="text" id="location" placeholder="Location" oninput="updateCV()">
+            
+            <textarea id="about" placeholder="Summary" oninput="updateCV()"></textarea>
+            <textarea id="experience" placeholder="Work Experience" oninput="updateCV()"></textarea>
+            <textarea id="education" placeholder="Education" oninput="updateCV()"></textarea>
+            <textarea id="skills" placeholder="Skills (Press Enter)" oninput="updateCV()"></textarea>
 
             <button onclick="downloadPDF()" class="btn-download">Download PDF</button>
         </div>
 
-        <!-- A4 CV Preview Area -->
-        <div class="a4-page" id="cv-template">
+        <!-- The CV Page -->
+        <div class="a4-page modern" id="cv-template">
             <div class="sidebar" id="sidebar-bg">
                 <div class="photo-container">
                     <img id="display-photo" src="" alt="Photo" style="display:none;">
                 </div>
-                
-                <div class="side-section">
-                    <h4 class="side-title">Contact</h4>
+                <div class="side-content">
+                    <h4>Contact</h4>
                     <p>📞 <span id="display-phone">-</span></p>
                     <p>📧 <span id="display-email">-</span></p>
                     <p>📍 <span id="display-location">-</span></p>
-                </div>
-
-                <div class="side-section">
-                    <h4 class="side-title">Skills</h4>
-                    <ul id="display-skills" class="skills-list">
-                        <li>-</li>
-                    </ul>
+                    
+                    <h4>Skills</h4>
+                    <ul id="display-skills"></ul>
                 </div>
             </div>
 
@@ -62,20 +59,13 @@
                     <h1 id="display-name" class="theme-text">YOUR NAME</h1>
                     <h3 id="display-jobTitle">Professional Title</h3>
                 </div>
-
-                <div class="body-section">
-                    <h4 class="theme-text section-header">Professional Summary</h4>
-                    <p id="display-about" class="text-block">Summary details...</p>
-                </div>
-
-                <div class="body-section">
-                    <h4 class="theme-text section-header">Work Experience</h4>
-                    <div id="display-experience" class="text-block">Experience details...</div>
-                </div>
-
-                <div class="body-section">
+                <div class="body-sections">
+                    <h4 class="theme-text section-header">Summary</h4>
+                    <p id="display-about" class="text-block">-</p>
+                    <h4 class="theme-text section-header">Experience</h4>
+                    <div id="display-experience" class="text-block">-</div>
                     <h4 class="theme-text section-header">Education</h4>
-                    <div id="display-education" class="text-block">Education details...</div>
+                    <div id="display-education" class="text-block">-</div>
                 </div>
             </div>
         </div>
