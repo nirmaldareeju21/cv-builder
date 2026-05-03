@@ -3,36 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional CV Builder</title>
+    <title>CV Builder By Nirmal</title>
     <link rel="stylesheet" href="style.css">
-    <!-- PDF එකක් සෑදීමට අවශ්‍ය Library එක -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
-
     <div class="container">
         <div class="editor">
-            <h2>CV Editor</h2>
-            <input type="text" id="name" placeholder="Full Name">
-            <input type="text" id="job" placeholder="Job Title">
-            <input type="email" id="email" placeholder="Email Address">
-            <textarea id="about" placeholder="About You"></textarea>
-            <button onclick="generateCV()">Preview CV</button>
-            <button onclick="downloadPDF()" class="download-btn">Download PDF</button>
+            <h2>Enter Details</h2>
+            <select id="templateSelector" onchange="changeTemplate()">
+                <option value="modern">Modern (Blue)</option>
+                <option value="classic">Classic (Dark)</option>
+            </select>
+            <input type="text" id="name" placeholder="Full Name" oninput="updateCV()">
+            <input type="text" id="job" placeholder="Job Title" oninput="updateCV()">
+            <input type="file" accept="image/*" onchange="previewImage(event)">
+            <textarea id="about" placeholder="Summary" oninput="updateCV()"></textarea>
+            <button onclick="downloadPDF()">Download as PDF</button>
         </div>
-
-        <div class="preview" id="cv-template">
-            <h1 id="display-name">Your Name</h1>
-            <h3 id="display-job">Job Title</h3>
-            <p id="display-email">email@example.com</p>
-            <hr>
-            <div class="content">
-                <h4>Summary</h4>
-                <p id="display-about">Brief description about yourself...</p>
-            </div>
+        <div class="preview modern" id="cv-template">
+            <img id="display-photo" src="" alt="Photo" style="width:100px; display:none; border-radius:10px;">
+            <h1 id="display-name">Nirmal Dareeju</h1>
+            <h3 id="display-job">AC Technician</h3>
+            <p id="display-about">Your professional summary will appear here...</p>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
