@@ -1,35 +1,36 @@
-body { font-family: 'Segoe UI', sans-serif; background: #333; margin: 0; padding: 20px; display: flex; justify-content: center; }
-.main-wrapper { display: flex; gap: 20px; }
+body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #333; margin: 0; padding: 20px; display: flex; justify-content: center; }
+.main-wrapper { display: flex; gap: 20px; align-items: flex-start; }
 
-/* Editor */
-.editor { width: 320px; background: #fff; padding: 20px; border-radius: 8px; height: 95vh; overflow-y: auto; position: sticky; top: 10px; }
-.color-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; background: #f9f9f9; padding: 10px; border-radius: 5px; }
-.control-group label { font-size: 12px; display: block; margin-bottom: 5px; }
+/* Editor Styling */
+.editor { width: 320px; background: #fff; padding: 20px; border-radius: 8px; max-height: 95vh; overflow-y: auto; position: sticky; top: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+.control-panel { background: #f0f2f5; padding: 15px; border-radius: 6px; margin-bottom: 15px; }
+.template-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 10px; }
+.template-selector button { padding: 8px; cursor: pointer; border: 1px solid #ccc; background: #fff; font-size: 12px; }
+.template-selector button:hover { background: #e0e0e0; }
 
-/* A4 Base */
-.a4-page { width: 210mm; height: 297mm; background: white; display: flex; box-shadow: 0 0 15px rgba(0,0,0,0.5); overflow: hidden; }
+/* Color Pickers */
+.color-box { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 13px; }
+.color-box input { width: 40px; height: 30px; cursor: pointer; padding: 0; border: none; }
 
-/* Modern Template */
-.modern .sidebar { width: 30%; background: #2c3e50; padding: 25px 15px; }
-.modern .main-content { width: 70%; padding: 40px; }
-.modern .photo-container { width: 140px; height: 140px; border-radius: 50%; border: 4px solid rgba(255,255,255,0.3); margin: 0 auto 25px; overflow: hidden; }
+/* A4 Page */
+.a4-page { width: 210mm; height: 297mm; background: white; display: flex; box-shadow: 0 0 20px rgba(0,0,0,0.5); overflow: hidden; position: relative; }
 
-/* Classic Template (Header on Top) */
-.classic { flex-direction: column; }
-.classic .sidebar { width: 100%; height: auto; display: flex; flex-direction: row; align-items: center; justify-content: space-around; padding: 20px; }
-.classic .main-content { padding: 40px; }
-.classic .photo-container { width: 110px; height: 110px; margin: 0; }
-.classic .side-header { display: none; }
+/* --- TEMPLATE: MODERN --- */
+.modern .sidebar { width: 32%; background: #2c3e50; color: white; padding: 30px 15px; transition: 0.3s; }
+.modern .main-content { width: 68%; padding: 40px; }
+.modern .photo-container { width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 20px; overflow: hidden; border: 4px solid rgba(255,255,255,0.2); }
 
-/* Minimalist Template (No Sidebar background) */
+/* --- TEMPLATE: MINIMALIST --- */
 .minimalist { flex-direction: column; padding: 40px; }
-.minimalist .sidebar { background: transparent !important; color: #333 !important; width: 100%; display: flex; justify-content: space-between; border-bottom: 2px solid #333; padding: 0 0 20px 0; }
-.minimalist .photo-container { width: 100px; height: 100px; border-radius: 5px; }
-.minimalist .main-content { width: 100%; padding: 20px 0; }
+.minimalist .sidebar { width: 100%; background: transparent !important; color: #333 !important; border-bottom: 2px solid #333; display: flex; justify-content: space-between; align-items: center; padding: 0 0 20px 0; }
+.minimalist .main-content { width: 100%; padding-top: 20px; }
+.minimalist .photo-container { width: 100px; height: 100px; border-radius: 10px; margin: 0; }
 
-/* Reusable Components */
 #display-photo { width: 100%; height: 100%; object-fit: cover; }
-.section-title-bar { border-bottom: 2px solid #eee; margin: 20px 0 10px; padding-bottom: 5px; text-transform: uppercase; }
+.section-header { border-bottom: 1px solid #ddd; margin: 20px 0 10px; padding-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
 .text-block { white-space: pre-line; font-size: 14px; line-height: 1.6; color: #444; }
+
+input, textarea { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+.btn-download { width: 100%; padding: 12px; background: #27ae60; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 10px; }
 
 @media print { .no-print { display: none; } .a4-page { box-shadow: none; margin: 0; } }
