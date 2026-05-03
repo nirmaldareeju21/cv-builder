@@ -1,35 +1,48 @@
 function updateCV() {
-    document.getElementById('display-name').innerText = document.getElementById('name').value || "YOUR NAME";
-    document.getElementById('display-jobTitle').innerText = document.getElementById('jobTitle').value || "Job Title";
+    document.getElementById('display-name').innerText = document.getElementById('name').value || "Nirmal Dareeju";
+    document.getElementById('display-jobTitle').innerText = document.getElementById('jobTitle').value || "AC Technician";
     document.getElementById('display-phone').innerText = document.getElementById('phone').value || "-";
     document.getElementById('display-email').innerText = document.getElementById('email').value || "-";
     document.getElementById('display-location').innerText = document.getElementById('location').value || "-";
+    
     document.getElementById('display-about').innerText = document.getElementById('about').value || "Summary...";
     document.getElementById('display-experience').innerText = document.getElementById('experience').value || "Experience...";
     document.getElementById('display-education').innerText = document.getElementById('education').value || "Education...";
 
-    const skills = document.getElementById('skills').value.split('\n');
-    const list = document.getElementById('display-skills');
-    list.innerHTML = '';
-    skills.forEach(s => { if(s.trim()) { let li = document.createElement('li'); li.innerText = s; list.appendChild(li); }});
+    const skillsText = document.getElementById('skills').value;
+    const skillsList = document.getElementById('display-skills');
+    skillsList.innerHTML = '';
+    if (skillsText) {
+        skillsText.split('\n').forEach(skill => {
+            if (skill.trim()) {
+                const li = document.createElement('li');
+                li.innerText = skill.trim();
+                skillsList.appendChild(li);
+            }
+        });
+    }
 }
 
-function setTemplate(name) {
+// 1. ටෙම්ප්ලෙට් මාරු කිරීම
+function setTemplate(styleName) {
     const cv = document.getElementById('cv-template');
-    cv.className = 'a4-page ' + name;
+    cv.className = 'a4-page ' + styleName;
+    console.log("Template changed to: " + styleName); // පරීක්ෂා කිරීමට
 }
 
+// 2. පාටවල් වෙන වෙනම වෙනස් කිරීම
 function applyColors() {
     const bgColor = document.getElementById('bgColor').value;
     const textColor = document.getElementById('textColor').value;
     
-    // Sidebar පාට සහ එහි අකුරු පාට වෙනස් කිරීම
     const sidebar = document.getElementById('cv-sidebar');
-    sidebar.style.backgroundColor = bgColor;
-    sidebar.style.color = textColor;
+    if (sidebar) {
+        sidebar.style.backgroundColor = bgColor;
+        sidebar.style.color = textColor;
+    }
 
-    // Main content එකේ Heading වල පාට Background color එකට සමාන කිරීම (Design එක ලස්සන වීමට)
-    document.querySelectorAll('.dynamic-heading').forEach(el => {
+    // Heading වලටත් ඒ පාටම දීම
+    document.querySelectorAll('.theme-text').forEach(el => {
         el.style.color = bgColor;
     });
 }
@@ -48,7 +61,7 @@ function downloadPDF() {
     const element = document.getElementById('cv-template');
     html2pdf().from(element).set({
         margin: 0,
-        filename: 'Professional_CV.pdf',
+        filename: 'My_Professional_CV.pdf',
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     }).save();
