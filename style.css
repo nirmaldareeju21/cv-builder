@@ -1,0 +1,11 @@
+body { font-family: 'Segoe UI', sans-serif; background: #f4f4f9; display: flex; justify-content: center; padding: 20px; }
+.container { display: flex; gap: 20px; max-width: 1000px; width: 100%; }
+.editor { flex: 1; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.preview { flex: 1; background: white; padding: 40px; border-radius: 8px; border: 1px solid #ddd; min-height: 500px; }
+
+input, textarea { width: 100%; margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+button { width: 100%; padding: 10px; background: #28a745; color: white; border: none; cursor: pointer; border-radius: 4px; }
+.download-btn { background: #007bff; margin-top: 10px; }
+
+#cv-template h1 { color: #333; margin-bottom: 5px; }
+#cv-template h3 { color: #666; margin-top: 0; }
