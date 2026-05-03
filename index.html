@@ -3,29 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Builder By Nirmal</title>
+    <title>Professional CV Builder By Nirmal</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <div class="editor">
-            <h2>Enter Details</h2>
-            <select id="templateSelector" onchange="changeTemplate()">
-                <option value="modern">Modern (Blue)</option>
-                <option value="classic">Classic (Dark)</option>
-            </select>
+        <div class="editor no-print">
+            <h2>Enter Your Details</h2>
             <input type="text" id="name" placeholder="Full Name" oninput="updateCV()">
-            <input type="text" id="job" placeholder="Job Title" oninput="updateCV()">
+            <input type="text" id="jobTitle" placeholder="Current Job Title" oninput="updateCV()">
             <input type="file" accept="image/*" onchange="previewImage(event)">
-            <textarea id="about" placeholder="Summary" oninput="updateCV()"></textarea>
+            
+            <input type="text" id="phone" placeholder="Phone Number" oninput="updateCV()">
+            <input type="email" id="email" placeholder="Email Address" oninput="updateCV()">
+            <input type="text" id="location" placeholder="City, Country" oninput="updateCV()">
+
+            <textarea id="about" placeholder="Professional Summary" oninput="updateCV()"></textarea>
+            
+            <textarea id="education" placeholder="Education (e.g., Degree - University - Year)" oninput="updateCV()"></textarea>
+            <textarea id="experience" placeholder="Work Experience (e.g., Role - Company - Dates)" oninput="updateCV()"></textarea>
+            <input type="text" id="skills" placeholder="Skills (comma separated)" oninput="updateCV()">
+
             <button onclick="downloadPDF()">Download as PDF</button>
         </div>
-        <div class="preview modern" id="cv-template">
-            <img id="display-photo" src="" alt="Photo" style="width:100px; display:none; border-radius:10px;">
-            <h1 id="display-name">Nirmal Dareeju</h1>
-            <h3 id="display-job">AC Technician</h3>
-            <p id="display-about">Your professional summary will appear here...</p>
+
+        <!-- CV Preview Section (Styled after Image_1.png and Image_3.png) -->
+        <div class="preview" id="cv-template">
+            <div class="header-section">
+                <img id="display-photo" src="" alt="Photo" style="display:none;">
+                <div class="title-details">
+                    <h1 id="display-name">Rahul Sharma</h1>
+                    <h3 id="display-jobTitle">Senior Software Developer</h3>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="left-col">
+                    <h4>Contact</h4>
+                    <p id="display-phone">phone</p>
+                    <p id="display-email">email</p>
+                    <p id="display-location">location</p>
+
+                    <h4>Education</h4>
+                    <p id="display-education">degree details</p>
+                    
+                    <h4>Skills</h4>
+                    <ul id="display-skills">
+                    </ul>
+                </div>
+                <div class="right-col">
+                    <h4>Professional Summary</h4>
+                    <p id="display-about">Summary about your experience...</p>
+                    
+                    <h4>Professional Experience</h4>
+                    <p id="display-experience">work experience details</p>
+                </div>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
