@@ -1,11 +1,29 @@
-body { font-family: Arial, sans-serif; display: flex; justify-content: center; background: #eef2f3; }
-.container { display: flex; width: 90%; margin-top: 50px; gap: 20px; }
-.editor { width: 40%; background: #fff; padding: 20px; border-radius: 10px; }
-.preview { width: 60%; background: #fff; padding: 40px; border-radius: 10px; min-height: 600px; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; background: #eef2f3; margin: 0; }
+.container { display: flex; width: 95%; max-width: 1200px; margin-top: 20px; gap: 20px; }
+.editor { width: 35%; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+.preview { width: 65%; background: #fff; border-radius: 10px; padding: 30px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); min-height: 800px; }
 
-/* ටෙම්ප්ලේට් වර්ග */
-.modern { border-top: 15px solid #007bff; }
-.classic { border-top: 15px solid #333; font-family: 'Times New Roman', serif; }
+/* Input Styles */
+input, textarea { width: calc(100% - 22px); margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; }
+textarea { height: 100px; resize: none; }
+button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; }
+button:hover { background: #0056b3; }
 
-input, textarea, select { width: 100%; margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; }
-button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; }
+/* Preview Layout (Based on Image_1 and Image_3) */
+.header-section { display: flex; align-items: center; gap: 20px; border-bottom: 2px solid #333; padding-bottom: 15px; }
+#display-photo { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; }
+.title-details h1 { margin: 0; text-transform: uppercase; }
+.title-details h3 { margin: 0; color: #666; }
+
+.content-section { display: flex; gap: 20px; margin-top: 20px; }
+.left-col { width: 40%; background: #f0f0f0; padding: 15px; border-radius: 5px; }
+.right-col { width: 60%; }
+
+h4 { text-transform: uppercase; border-bottom: 1px solid #666; padding-bottom: 5px; }
+p { color: #333; line-height: 1.6; }
+ul { padding-left: 20px; }
+
+/* Styles for PDF Generation (No Editor in PDF) */
+@media print {
+    .no-print { display: none; }
+}
