@@ -9,53 +9,50 @@
 </head>
 <body>
     <div class="container">
-        <!-- Input Area -->
+        <!-- Editor -->
         <div class="editor no-print">
-            <h2>CV Editor</h2>
-            <div class="input-group">
-                <label>Profile Photo</label>
-                <input type="file" accept="image/*" onchange="previewImage(event)">
-            </div>
+            <h2>Enter Your Details</h2>
             <input type="text" id="name" placeholder="Full Name" oninput="updateCV()">
-            <input type="text" id="jobTitle" placeholder="Professional Title (e.g. AC Technician)" oninput="updateCV()">
+            <input type="text" id="jobTitle" placeholder="Professional Title" oninput="updateCV()">
+            <input type="file" accept="image/*" onchange="previewImage(event)">
             
-            <div class="section-title">Contact Info</div>
             <input type="text" id="phone" placeholder="Phone Number" oninput="updateCV()">
             <input type="email" id="email" placeholder="Email Address" oninput="updateCV()">
             <input type="text" id="location" placeholder="City, Country" oninput="updateCV()">
 
-            <div class="section-title">Professional Sections</div>
             <textarea id="about" placeholder="Professional Summary" oninput="updateCV()"></textarea>
-            <textarea id="experience" placeholder="Work Experience (Role - Company - Dates)" oninput="updateCV()"></textarea>
-            <textarea id="education" placeholder="Education (Degree - Institution - Year)" oninput="updateCV()"></textarea>
-            
-            <div class="section-title">Skills (Press Enter for each skill)</div>
-            <textarea id="skills" placeholder="Type a skill and press Enter..." oninput="updateCV()"></textarea>
+            <textarea id="education" placeholder="Education (Enter multiple lines)" oninput="updateCV()"></textarea>
+            <textarea id="experience" placeholder="Experience (Enter multiple lines)" oninput="updateCV()"></textarea>
+            <textarea id="skills" placeholder="Skills (Enter one per line)" oninput="updateCV()"></textarea>
 
-            <button onclick="downloadPDF()" class="btn-download">Download as PDF</button>
+            <button onclick="downloadPDF()">Download as PDF</button>
         </div>
 
-        <!-- Preview Area -->
+        <!-- Preview -->
         <div class="preview" id="cv-template">
             <div class="header-section">
-                <img id="display-photo" src="" alt="Profile Photo" style="display:none;">
+                <img id="display-photo" src="" alt="Photo" style="display:none;">
                 <div class="title-details">
-                    <h1 id="display-name">YOUR NAME</h1>
-                    <h3 id="display-jobTitle">Professional Title</h3>
+                    <h1 id="display-name">Nirmal Dareeju</h1>
+                    <h2 id="display-jobTitle">Job Title</h2>
                 </div>
             </div>
 
             <div class="content-section">
-                <!-- Side Bar -->
                 <div class="left-col">
-                    <div class="cv-section">
+                    <div class="section">
                         <h4>Contact</h4>
-                        <p><strong>📞</strong> <span id="display-phone">-</span></p>
-                        <p><strong>📧</strong> <span id="display-email">-</span></p>
-                        <p><strong>📍</strong> <span id="display-location">-</span></p>
+                        <p id="display-phone">0773002061</p>
+                        <p id="display-email">nirmaldareeju21@gmail.com</p>
+                        <p id="display-location">Divulapitiya</p>
                     </div>
 
-                    <div class="cv-section">
+                    <div class="section">
+                        <h4>Education</h4>
+                        <div id="display-education" class="multi-line">Education details...</div>
+                    </div>
+
+                    <div class="section">
                         <h4>Skills</h4>
                         <ul id="display-skills">
                             <li>Your skills will appear here</li>
@@ -63,21 +60,15 @@
                     </div>
                 </div>
 
-                <!-- Main Content -->
                 <div class="right-col">
-                    <div class="cv-section">
+                    <div class="section">
                         <h4>Professional Summary</h4>
-                        <p id="display-about">Brief summary about your career goals and expertise...</p>
+                        <div id="display-about" class="multi-line">Professional summary...</div>
                     </div>
 
-                    <div class="cv-section">
-                        <h4>Work Experience</h4>
-                        <div id="display-experience" class="multi-line-display">Details about your past roles...</div>
-                    </div>
-
-                    <div class="cv-section">
-                        <h4>Education</h4>
-                        <div id="display-education" class="multi-line-display">Details about your academic qualifications...</div>
+                    <div class="section">
+                        <h4>Professional Experience</h4>
+                        <div id="display-experience" class="multi-line">Experience details...</div>
                     </div>
                 </div>
             </div>
