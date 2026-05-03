@@ -21,13 +21,20 @@
             <div class="color-controls">
                 <div class="control-group">
                     <label>Background:</label>
-                    <input type="color" id="bgColor" value="#2c3e50" oninput="applyColors()">
-                </div>
-                <div class="control-group">
-                    <label>Text Color:</label>
-                    <input type="color" id="textColor" value="#ffffff" oninput="applyColors()">
-                </div>
-            </div>
+                    <input type="color" id="bgColor" value="#2c3e50" oninput="applyColors()"><div class="control-panel">
+    <div class="template-selector">
+        <button onclick="setTemplate('modern')">Modern Style</button>
+        <button onclick="setTemplate('minimalist')">Minimalist Style</button>
+    </div>
+    <div class="color-box">
+        <label>Sidebar Color:</label>
+        <input type="color" id="bgColor" value="#2c3e50" oninput="applyColors()">
+    </div>
+    <div class="color-box">
+        <label>Text Color:</label>
+        <input type="color" id="textColor" value="#ffffff" oninput="applyColors()">
+    </div>
+</div>
 
             <div class="section-title">Information</div>
             <input type="text" id="name" placeholder="Full Name" oninput="updateCV()">
