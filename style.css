@@ -1,38 +1,45 @@
-body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #333; margin: 0; padding: 20px; display: flex; justify-content: center; }
-.main-wrapper { display: flex; gap: 20px; align-items: flex-start; max-width: 1200px; }
+/* පොදු සැකසුම් */
+body { font-family: 'Segoe UI', sans-serif; background: #333; margin: 0; padding: 10px; display: flex; justify-content: center; }
+.main-wrapper { display: flex; flex-direction: row; gap: 20px; align-items: flex-start; width: 100%; max-width: 1200px; }
 
-/* Editor Styling */
-.editor { width: 320px; background: #fff; padding: 20px; border-radius: 8px; max-height: 95vh; overflow-y: auto; position: sticky; top: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+/* Editor සැකසුම් */
+.editor { width: 350px; background: #fff; padding: 20px; border-radius: 8px; max-height: 95vh; overflow-y: auto; position: sticky; top: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); flex-shrink: 0; }
 .control-panel { background: #f9f9f9; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 15px; }
 .template-selector { display: flex; gap: 5px; margin: 10px 0; }
-.template-selector button { flex: 1; padding: 6px; cursor: pointer; font-size: 11px; background: #fff; border: 1px solid #ccc; }
+.template-selector button { flex: 1; padding: 8px; cursor: pointer; font-size: 11px; background: #fff; border: 1px solid #ccc; }
 .color-controls { display: flex; gap: 10px; margin-top: 10px; }
+.control-group { flex: 1; }
 .control-group label { display: block; font-size: 11px; margin-bottom: 2px; }
 
-/* A4 Page Layout */
-.a4-page { width: 210mm; height: 297mm; background: white; display: flex; box-shadow: 0 0 20px rgba(0,0,0,0.5); overflow: hidden; }
+/* CV Preview එක (A4 සයිස් නමුත් ෆෝන් එකට ගැලපෙන ලෙස) */
+.preview-container { flex-grow: 1; display: flex; justify-content: center; overflow-x: auto; padding-bottom: 20px; }
+.a4-page { width: 210mm; min-height: 297mm; background: white; display: flex; box-shadow: 0 0 20px rgba(0,0,0,0.5); overflow: hidden; transform-origin: top center; }
 
-/* Template: MODERN */
+/* ටෙම්ප්ලෙට් සැකසුම් */
 .modern .sidebar { width: 32%; background: #2c3e50; color: white; padding: 30px 15px; }
 .modern .main-content { width: 68%; padding: 40px; }
-.modern .photo-container { width: 130px; height: 130px; border-radius: 50%; margin: 0 auto 20px; overflow: hidden; border: 4px solid rgba(255,255,255,0.2); }
+.modern .photo-container { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 20px; overflow: hidden; border: 3px solid rgba(255,255,255,0.2); }
 
-/* Template: CLASSIC */
 .classic { flex-direction: column; }
 .classic .sidebar { width: 100%; height: auto; display: flex; flex-direction: row; align-items: center; justify-content: space-around; padding: 20px; }
 .classic .main-content { padding: 40px; }
-.classic .photo-container { width: 100px; height: 100px; margin: 0; }
 
-/* Template: MINIMALIST */
-.minimalist { flex-direction: column; padding: 50px; }
-.minimalist .sidebar { background: transparent !important; color: #333 !important; width: 100%; border-bottom: 2px solid #333; padding: 0 0 20px 0; }
-.minimalist .main-content { padding-top: 30px; }
+.minimalist { flex-direction: column; padding: 40px; }
+.minimalist .sidebar { background: transparent !important; color: #333 !important; width: 100%; border-bottom: 2px solid #333; display: flex; justify-content: space-between; padding-bottom: 10px; }
 
-/* Text & Typography */
+/* Responsive සැකසුම් (ෆෝන් සඳහා) */
+@media (max-width: 900px) {
+    .main-wrapper { flex-direction: column; align-items: center; }
+    .editor { width: 100%; position: static; max-height: none; }
+    .preview-container { width: 100%; overflow-x: scroll; justify-content: flex-start; }
+    .a4-page { zoom: 0.5; } /* ෆෝන් එකේ පේන්න පොඩි කරනවා */
+}
+
+/* Typography */
 #display-photo { width: 100%; height: 100%; object-fit: cover; }
-.section-title-bar { border-bottom: 2px solid #eee; margin: 20px 0 10px; text-transform: uppercase; color: #2c3e50; }
-.text-block { white-space: pre-line; font-size: 14px; line-height: 1.6; color: #444; }
-input, textarea { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-.btn-download { width: 100%; padding: 12px; background: #27ae60; color: white; border: none; cursor: pointer; font-weight: bold; margin-top: 10px; }
+.section-title-bar { border-bottom: 2px solid #eee; margin: 20px 0 10px; text-transform: uppercase; font-size: 16px; }
+.text-block { white-space: pre-line; font-size: 14px; line-height: 1.5; color: #444; }
+input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+.btn-download { width: 100%; padding: 15px; background: #27ae60; color: white; border: none; cursor: pointer; font-weight: bold; border-radius: 5px; font-size: 16px; }
 
-@media print { .no-print { display: none; } }
+@media print { .no-print { display: none; } .a4-page { zoom: 1 !important; box-shadow: none; } }
