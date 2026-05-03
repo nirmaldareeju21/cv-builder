@@ -1,75 +1,54 @@
 import streamlit as st
-from youtube_transcript_api import YouTubeTranscriptApi
-from fpdf import FPDF
-import re
-import os
 
-# Page setup - Claude Style
-st.set_page_config(page_title="AI Video Assistant", page_icon="🤖", layout="centered")
+# පෙනුම සකස් කිරීම
+st.set_page_config(page_title="Walawwa Adventure", page_icon="🏰")
 
 st.markdown("""
     <style>
-    .stApp { background-color: #f9f6f2; } 
-    .stButton>button { width: 100%; border-radius: 20px; background-color: #d97757; color: white; }
+    .stApp { background-color: #1a1a1a; color: #e0e0e0; } /* කළු පසුබිම - Horror/Mystery look */
+    .stButton>button { width: 100%; border-radius: 5px; height: 3em; background-color: #4a0404; color: white; border: 1px solid #ff0000; }
     </style>
     """, unsafe_allow_html=True)
 
-st.title("🤖 AI Video Assistant (Pro)")
-st.caption("I provide clean summaries using YouTube transcripts.")
+st.title("🏰 වලව්වේ අභිරහස (Mystery of Walawwa)")
 
-# Session state to keep chat history
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+# Game State කළමනාකරණය
+if 'scene' not in st.session_state:
+    st.session_state.scene = 'start'
 
-# Display chat messages
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+def change_scene(next_scene):
+    st.session_state.scene = next_scene
 
-def extract_video_id(url):
-    reg = r"(?:v=|\/)([0-9A-Za-z_-]{11}).*"
-    match = re.search(reg, url)
-    return match.group(1) if match else None
+# කතාවේ දර්ශන (Scenes)
+if st.session_state.scene == 'start':
+    st.image("https://img.freepik.com/free-photo/creepy-old-house-night_23-2151000676.jpg", caption="පාලු වලව්ව")
+    st.write("වර්ෂාව අධික රාත්‍රියකි. ඔබේ වාහනය කැඩී අතරමං වී සිටින ඔබ, ඈතින් පෙනෙන පැරණි වලව්වක් දෙසට පියමනින්නෙහිය...")
+    if st.button("වලව්වේ ප්‍රධාන දොරටුව තට්ටු කරන්න"):
+        change_scene('door')
+    if st.button("වත්ත වටේ ගොස් ජනේලයකින් බලන්න"):
+        change_scene('window')
 
-# Main logic
-if url_input := st.chat_input("Paste YouTube link here..."):
-    st.session_state.messages.append({"role": "user", "content": url_input})
-    with st.chat_message("user"):
-        st.markdown(url_input)
+elif st.session_state.scene == 'door':
+    st.write("ඔබ දොරට තට්ටු කළ සැණින් එය කෙඳිරිගාමින් විවෘත විය. ඇතුළත කිසිවෙකු නැත, නමුත් ලාම්පුවක් දැල්වෙමින් පවතී...")
+    if st.button("ඇතුළට ගොස් 'කවුද ඉන්නේ?' කියා අසන්න"):
+        change_scene('hall')
+    if st.button("බිය වී ආපසු හැරී දිව යන්න"):
+        change_scene('run')
 
-    with st.chat_message("assistant"):
-        msg = st.empty()
-        msg.markdown("Fetching transcript and summarizing... 🔍")
-        
-        try:
-            video_id = extract_video_id(url_input)
-            if not video_id:
-                raise Exception("Invalid YouTube Link. Please check the URL.")
+elif st.session_state.scene == 'window':
+    st.write("ඔබ ජනේලයෙන් බලන විට, කළු පැහැති සෙවනැල්ලක් වේගයෙන් කාමරය හරහා යනවා දුටුවේය!")
+    if st.button("ධෛර්යය ගෙන ඇතුළට යාමට උත්සාහ කරන්න"):
+        change_scene('door')
+    if st.button("වහාම එතැනින් ඉවත් වන්න"):
+        change_scene('run')
 
-            # Get Transcript
-            transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
-            full_text = " ".join([i['text'] for i in transcript_list])
+elif st.session_state.scene == 'hall':
+    st.write("ඔබ සාලය මැද සිටගෙන සිටියදී, ඉහළ මාලයෙන් ගැහැනු ළමයෙකුගේ හැඬුම් හඬක් ඇසෙයි...")
+    st.success("මතු සම්බන්ධයි... (To be continued)")
+    if st.button("නැවත මුල සිට පටන් ගන්න"):
+        change_scene('start')
 
-            # AI Summary logic (Simple but effective for Free tier)
-            # මුල් වචන 1500 සාරාංශයක් ලෙස ගනිමු (වඩා දියුණු AI වලට වඩා මෙය Free tier එකේ stable වේ)
-            summary = full_text[:1500] + ("..." if len(full_text) > 1500 else "")
-
-            response = f"✅ **Analysis Complete!**\n\n**Summary:**\n{summary}"
-            msg.markdown(response)
-
-            # PDF Export logic
-            pdf = FPDF()
-            pdf.add_page()
-            pdf.set_font("Arial", size=12)
-            # Encoding fix for FPDF
-            clean_text = summary.encode('latin-1', 'ignore').decode('latin-1')
-            pdf.multi_cell(0, 10, txt=clean_text)
-            pdf.output("summary.pdf")
-
-            st.download_button("📥 Download PDF Summary", open("summary.pdf", "rb"), file_name="Summary.pdf")
-            st.session_state.messages.append({"role": "assistant", "content": response})
-
-        except Exception as e:
-            error_msg = f"❌ Error: {str(e)}\n\n(Note: Subtitles might be disabled for this video.)"
-            msg.markdown(error_msg)
-            st.session_state.messages.append({"role": "assistant", "content": error_msg})
+elif st.session_state.scene == 'run':
+    st.error("ඔබ බිය වී දිව යන විට මඩක පටලැවී බිම වැටුණි. වලව්වේ දොර ඉබේම වැසී ගියේය. ඔබ අතරමං විය!")
+    if st.button("නැවත උත්සාහ කරන්න"):
+        change_scene('start')
