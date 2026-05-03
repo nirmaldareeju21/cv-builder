@@ -1,10 +1,10 @@
+// 1. තොරතුරු Update කිරීම
 function updateCV() {
-    document.getElementById('display-name').innerText = document.getElementById('name').value || "Nirmal Dareeju";
-    document.getElementById('display-jobTitle').innerText = document.getElementById('jobTitle').value || "AC Technician";
+    document.getElementById('display-name').innerText = document.getElementById('name').value || "NIRMAL DAREEJU";
+    document.getElementById('display-jobTitle').innerText = document.getElementById('jobTitle').value || "Job Title";
     document.getElementById('display-phone').innerText = document.getElementById('phone').value || "-";
     document.getElementById('display-email').innerText = document.getElementById('email').value || "-";
     document.getElementById('display-location').innerText = document.getElementById('location').value || "-";
-    
     document.getElementById('display-about').innerText = document.getElementById('about').value || "Summary...";
     document.getElementById('display-experience').innerText = document.getElementById('experience').value || "Experience...";
     document.getElementById('display-education').innerText = document.getElementById('education').value || "Education...";
@@ -23,30 +23,32 @@ function updateCV() {
     }
 }
 
-// 1. ටෙම්ප්ලෙට් මාරු කිරීම
+// 2. ටෙම්ප්ලෙට් මාරු කිරීම
 function setTemplate(styleName) {
     const cv = document.getElementById('cv-template');
-    cv.className = 'a4-page ' + styleName;
-    console.log("Template changed to: " + styleName); // පරීක්ෂා කිරීමට
+    // සියලු පරණ classes අයින් කර අලුත් එක දාන්න
+    cv.classList.remove('modern', 'classic', 'minimalist');
+    cv.classList.add(styleName);
 }
 
-// 2. පාටවල් වෙන වෙනම වෙනස් කිරීම
+// 3. පාටවල් වෙන වෙනම ඇප්ලයි කිරීම
 function applyColors() {
     const bgColor = document.getElementById('bgColor').value;
     const textColor = document.getElementById('textColor').value;
     
     const sidebar = document.getElementById('cv-sidebar');
-    if (sidebar) {
-        sidebar.style.backgroundColor = bgColor;
-        sidebar.style.color = textColor;
-    }
+    
+    // Sidebar එකේ පසුබිම සහ අකුරු පාට
+    sidebar.style.backgroundColor = bgColor;
+    sidebar.style.color = textColor;
 
-    // Heading වලටත් ඒ පාටම දීම
-    document.querySelectorAll('.theme-text').forEach(el => {
+    // ප්‍රධාන මාතෘකා වල පාට (Sidebar එකේ පාටට ගැලපෙන ලෙස)
+    document.querySelectorAll('.dynamic-heading').forEach(el => {
         el.style.color = bgColor;
     });
 }
 
+// 4. පින්තූරය Preview කිරීම
 function previewImage(event) {
     const reader = new FileReader();
     reader.onload = () => {
@@ -57,12 +59,15 @@ function previewImage(event) {
     reader.readAsDataURL(event.target.files[0]);
 }
 
+// 5. PDF ලෙස Download කිරීම
 function downloadPDF() {
     const element = document.getElementById('cv-template');
-    html2pdf().from(element).set({
+    const opt = {
         margin: 0,
-        filename: 'My_Professional_CV.pdf',
+        filename: 'My_CV.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    }).save();
+    };
+    html2pdf().set(opt).from(element).save();
 }
