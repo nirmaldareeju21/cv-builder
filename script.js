@@ -1,25 +1,33 @@
 function updateCV() {
-    document.getElementById('display-name').innerText = document.getElementById('name').value || "Your Name";
-    document.getElementById('display-jobTitle').innerText = document.getElementById('jobTitle').value || "Job Title";
+    // Basic Details
+    document.getElementById('display-name').innerText = document.getElementById('name').value || "YOUR NAME";
+    document.getElementById('display-jobTitle').innerText = document.getElementById('jobTitle').value || "Professional Title";
     
-    document.getElementById('display-phone').innerText = document.getElementById('phone').value || "Phone Number";
-    document.getElementById('display-email').innerText = document.getElementById('email').value || "Email Address";
-    document.getElementById('display-location').innerText = document.getElementById('location').value || "City, Country";
+    // Contact Info
+    document.getElementById('display-phone').innerText = document.getElementById('phone').value || "-";
+    document.getElementById('display-email').innerText = document.getElementById('email').value || "-";
+    document.getElementById('display-location').innerText = document.getElementById('location').value || "-";
     
-    document.getElementById('display-about').innerText = document.getElementById('about').value || "Professional Summary...";
-    document.getElementById('display-education').innerText = document.getElementById('education').value || "Education Details...";
-    document.getElementById('display-experience').innerText = document.getElementById('experience').value || "Professional Experience Details...";
+    // Main Sections
+    document.getElementById('display-about').innerText = document.getElementById('about').value || "Summary details...";
+    document.getElementById('display-experience').innerText = document.getElementById('experience').value || "Experience details...";
+    document.getElementById('display-education').innerText = document.getElementById('education').value || "Education details...";
 
-    // Handle Skills (comma separated to list)
+    // Handle Skills (New line to list items)
     const skillsText = document.getElementById('skills').value;
     const skillsList = document.getElementById('display-skills');
-    skillsList.innerHTML = ''; // Clear previous list
+    skillsList.innerHTML = ''; 
+    
     if (skillsText) {
-        skillsText.split(',').forEach(skill => {
-            const li = document.createElement('li');
-            li.innerText = skill.trim();
-            skillsList.appendChild(li);
+        skillsText.split('\n').forEach(skill => {
+            if (skill.trim() !== "") {
+                const li = document.createElement('li');
+                li.innerText = skill.trim();
+                skillsList.appendChild(li);
+            }
         });
+    } else {
+        skillsList.innerHTML = '<li>Your skills will appear here</li>';
     }
 }
 
@@ -37,7 +45,7 @@ function downloadPDF() {
     const element = document.getElementById('cv-template');
     const opt = {
         margin: 10,
-        filename: 'Professional_CV.pdf',
+        filename: 'My_Professional_CV.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
