@@ -5,22 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional CV Builder</title>
     <link rel="stylesheet" href="style.css">
-    <!-- PDF එකක් ලෙස සේව් කිරීමට අවශ්‍ය ලයිබ්‍රරි එක -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
     <div class="main-wrapper">
-        <!-- වම් පස Editor කොටස -->
         <div class="editor no-print">
             <h2>CV Settings</h2>
             
             <div class="control-panel">
                 <label>Select Template:</label>
                 <div class="template-selector">
-                    <button onclick="setTemplate('modern')">Modern</button>
-                    <button onclick="setTemplate('classic')">Classic</button>
-                    <button onclick="setTemplate('minimalist')">Minimalist</button>
+                    <button type="button" onclick="setTemplate('modern')">Modern</button>
+                    <button type="button" onclick="setTemplate('classic')">Classic</button>
+                    <button type="button" onclick="setTemplate('minimalist')">Minimalist</button>
                 </div>
 
                 <div class="color-controls">
@@ -45,15 +43,15 @@
             <input type="text" id="location" placeholder="Location" oninput="updateCV()">
 
             <div class="section-title">Experience & Skills</div>
-            <textarea id="about" placeholder="Summary" oninput="updateCV()"></textarea>
+            <textarea id="about" placeholder="Professional Summary" oninput="updateCV()"></textarea>
             <textarea id="experience" placeholder="Work Experience" oninput="updateCV()"></textarea>
             <textarea id="education" placeholder="Education" oninput="updateCV()"></textarea>
-            <textarea id="skills" placeholder="Skills (One per line)" oninput="updateCV()"></textarea>
+            <textarea id="skills" placeholder="Skills (Press Enter for each)" oninput="updateCV()"></textarea>
 
             <button onclick="downloadPDF()" class="btn-download">Download as PDF</button>
         </div>
 
-        <!-- දකුණු පස CV Preview (A4 Size) -->
+        <!-- Preview Section -->
         <div class="a4-page modern" id="cv-template">
             <div class="sidebar" id="cv-sidebar">
                 <div class="photo-container">
@@ -61,33 +59,31 @@
                 </div>
                 
                 <div class="side-content">
-                    <h4 class="side-header">Contact</h4>
-                    <p>📞 <span id="display-phone">0773002061</span></p>
-                    <p>📧 <span id="display-email">nirmal@mail.com</span></p>
-                    <p>📍 <span id="display-location">Divulapitiya</span></p>
+                    <h4>Contact</h4>
+                    <p>📞 <span id="display-phone">-</span></p>
+                    <p>📧 <span id="display-email">-</span></p>
+                    <p>📍 <span id="display-location">-</span></p>
 
-                    <h4 class="side-header">Skills</h4>
-                    <ul id="display-skills">
-                        <li>Skill 1</li>
-                    </ul>
+                    <h4>Skills</h4>
+                    <ul id="display-skills"></ul>
                 </div>
             </div>
 
             <div class="main-content">
                 <div class="header">
-                    <h1 id="display-name" class="dynamic-heading">NIRMAL DAREEJU</h1>
-                    <h3 id="display-jobTitle">Job Title</h3>
+                    <h1 id="display-name" class="dynamic-heading">YOUR NAME</h1>
+                    <h3 id="display-jobTitle">Professional Title</h3>
                 </div>
 
                 <div class="body-sections">
-                    <h4 class="dynamic-heading section-title-bar">Professional Summary</h4>
-                    <p id="display-about" class="text-block">Professional summary goes here...</p>
+                    <h4 class="dynamic-heading section-title-bar">Summary</h4>
+                    <p id="display-about" class="text-block">-</p>
 
                     <h4 class="dynamic-heading section-title-bar">Experience</h4>
-                    <div id="display-experience" class="text-block">Work experience details...</div>
+                    <div id="display-experience" class="text-block">-</div>
 
                     <h4 class="dynamic-heading section-title-bar">Education</h4>
-                    <div id="display-education" class="text-block">Education details...</div>
+                    <div id="display-education" class="text-block">-</div>
                 </div>
             </div>
         </div>
